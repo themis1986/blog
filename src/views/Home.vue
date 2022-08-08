@@ -1,53 +1,32 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <input type="text" v-model="search" />
-    <p>Search term - {{ search }}</p>
-    <div v-for="name in matchingNames" :key="name">{{ name }}</div>
-    <button @click="stopWatching">Stop Warching</button>
+    <PostList :posts="posts" />
   </div>
 </template>
 
 <script>
-import { ref, computed, watch, watchEffect } from "vue";
+import PostList from "../components/PostList.vue";
+import { ref } from "vue";
 
 export default {
   name: "Home",
-  components: {},
+  components: { PostList },
   setup() {
-    const names = ref([
-      "mario",
-      "yoshi",
-      "luigi",
-      "toad",
-      "bowser",
-      "koopa",
-      "peach",
+    const posts = ref([
+      {
+        title: "welcome to the blog",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat pretium risus, eu gravida massa laoreet quis. Fusce vitae diam at neque congue congue. Etiam massa ligula, blandit quis mattis in, vestibulum eu quam. Suspendisse potenti. Aliquam rhoncus diam sit amet imperdiet facilisis. Sed quis augue sit amet erat rhoncus aliquet. Nulla non ante a eros vestibulum aliquet nec ut orci. Vestibulum felis magna, ultrices at nibh a, aliquam finibus ipsum. Duis eleifend sem pellentesque, ultrices tellus vitae, sodales risus.",
+        id: 1,
+      },
+      {
+        title: "top 5 CSS tips",
+        body: "Donec ac turpis eros. Aliquam vitae orci vitae dui finibus commodo. Duis quis rhoncus augue, in molestie lectus. Suspendisse auctor nibh turpis, eget consectetur purus vehicula in. Quisque aliquam consequat sem, quis blandit nulla hendrerit eget. Fusce ex ante, scelerisque eget nulla sed, dapibus tincidunt erat. Aenean vitae porttitor odio.",
+        id: 2,
+      },
     ]);
-    const search = ref("");
 
-    const stopWatch = watch(search, () => {
-      console.log("watch function ran");
-      if (search.value === "fuck") {
-        alert("WATCH YOUR TONGUE MATE");
-        search.value = "";
-      }
-    });
-
-    const stopEffect = watchEffect(() => {
-      console.log("watchEffect function ran", search.value);
-    });
-
-    const stopWatching = () => {
-      stopWatch();
-      stopEffect();
-    };
-
-    const matchingNames = computed(() => {
-      return names.value.filter((name) => name.includes(search.value));
-    });
-
-    return { names, search, matchingNames, stopWatching };
+    return { posts };
   },
 };
 </script>
