@@ -15,12 +15,15 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup() {
     const title = ref("");
     const body = ref("");
     const tag = ref("");
     const tags = ref([]);
+
+    const router = useRouter();
 
     const handleKeydown = () => {
       if (!tags.value.includes(tag.value)) {
@@ -45,6 +48,7 @@ export default {
         if (!response.ok) {
           throw Error("Could not save your post.Try again!");
         }
+        router.push({ name: "Home" });
       } catch (error) {
         console.log(error.message);
       }
