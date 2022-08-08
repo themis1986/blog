@@ -16,6 +16,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { projectFirestore } from "../firebase/config";
 export default {
   setup() {
     const title = ref("");
@@ -40,14 +41,7 @@ export default {
         tags: tags.value,
       };
       try {
-        const response = await fetch("http://localhost:3000/posts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newPost),
-        });
-        if (!response.ok) {
-          throw Error("Could not save your post.Try again!");
-        }
+        const res = await projectFirestore.collection("posts").add(newPost);
         router.push({ name: "Home" });
       } catch (error) {
         console.log(error.message);
