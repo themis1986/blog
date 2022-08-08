@@ -7,9 +7,9 @@ const getPosts = () => {
   const load = async () => {
     try {
       // simulate delay
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
+      // await new Promise((resolve) => {
+      //   setTimeout(resolve, 2000);
+      // });
       let response = await fetch("http://localhost:3000/posts");
       if (!response.ok) {
         throw Error("No data available");
