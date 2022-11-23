@@ -7,6 +7,9 @@
 import Navbar from "./components/Navbar.vue";
 export default {
   components: { Navbar },
+  mounted() {
+    console.log("Application mounted");
+  },
 };
 </script>
 
